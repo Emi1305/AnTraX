@@ -14,12 +14,14 @@ def obtenerDatos():
     puerto_orig = r'(?P<puerto_orig>\d+)'
     puerto_dest = r'(?P<puerto_orig>\d+)'
     length = r'length (?P<length>\d+)'
+    flags_tcp = r'S?F?P?R?U?W?E?\.?'
 
 
 
     arpRequest = re.compile(r' '.join([hora, r'(?P<protocolo>ARP, Request) who-has', ip_orig, r'tell', ip_dest, length]))
     arpReply = re.compile(r' '.join([hora, r'(?P<protocolo>ARP, Reply)', ip_orig, r'is-at', ip_dest, length]))
 
+    tcp = re.compile(r' '.join([ip_orig + '.' + puerto_orig, '>', ip_dest + '.' + puerto_dest + ':', flags_tcp,  ]))
     #regex = re.compile(rb'(?P<hora>\d+:\d+:\d+)\.\d+ IP (?P<ip_orig>(?:\d{1,3}\.){3}\d{1,3})\.(?P<puerto_orig>\d+) > (?P<ip_dest>(?:\d{1,3}\.){3}\d{1,3})\.(?P<puerto_dest>\d+): (?P<protocolo>[^,]+), length (?P<length>\d+)')
 
     regexes = (arpRequest,
